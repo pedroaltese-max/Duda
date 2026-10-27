@@ -704,3 +704,80 @@
     setInterval(atualizarContador, 1000);
     atualizarContador();
 </script>
+<!-- Secção Interativa de Sentimentos -->
+<div class="sentiment-box">
+    <p style="font-size: 14px; margin-bottom: 12px; color: #ffcccc;">O que estás a sentir agora ao ver isto? 💖</p>
+    <div class="sentiment-buttons">
+        <button class="sentiment-btn" onclick="escolherSentimento('apaixonada')">😍</button>
+        <button class="sentiment-btn" onclick="escolherSentimento('surpresa')">🕷️</button>
+        <button class="sentiment-btn" onclick="escolherSentimento('fofa')">🥰</button>
+        <button class="sentiment-btn" onclick="escolherSentimento('riso')">🤭</button>
+    </div>
+    <div id="resposta-sentimento" style="margin-top: 12px; font-size: 14px; font-weight: bold; color: #fff; min-height: 24px;"></div>
+</div>
+
+<style>
+    .sentiment-box {
+        margin-top: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 15px;
+        border-radius: 15px;
+        border: 1px solid rgba(255, 77, 77, 0.3);
+    }
+    .sentiment-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+    .sentiment-btn {
+        background: rgba(255, 77, 77, 0.2);
+        border: 2px solid #ff4d4d;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+        cursor: pointer;
+        transition: 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .sentiment-btn:active {
+        transform: scale(0.85);
+        background: #ff4d4d;
+    }
+</style>
+
+<script>
+    function escolherSentimento(tipo) {
+        const respostaDiv = document.getElementById("resposta-sentimento");
+        
+        if (tipo === 'apaixonada') {
+            respostaDiv.innerHTML = "O meu coração bate forte por ti a cada segundo! 💓";
+            animarChuvaDeElementos('coracao');
+        } else if (tipo === 'surpresa') {
+            respostaDiv.innerHTML = "Thwip! Prendeste-me completamente a ti! 🕸️✨";
+            animarChuvaDeElementos('teia');
+        } else if (tipo === 'fofa') {
+            respostaDiv.innerHTML = "És a coisinha mais especial do meu mundo! 🥰";
+            animarChuvaDeElementos('estrela');
+        } else if (tipo === 'riso') {
+            respostaDiv.innerHTML = "O teu sorriso é a minha coisa favorita no universo! 😄❤️";
+            animarChuvaDeElementos('coracao');
+        }
+    }
+
+    function animarChuvaDeElementos(tipoVisual) {
+        for (let i = 0; i < 12; i++) {
+            const x = Math.random() * canvas.width;
+            const y = (canvas.height / 2) + (Math.random() * 100 - 50);
+            elementos.push({
+                x: x,
+                y: y,
+                raio: 15 + Math.random() * 10,
+                alfa: 1,
+                tipo: tipoVisual
+            });
+        }
+    }
+</script>
