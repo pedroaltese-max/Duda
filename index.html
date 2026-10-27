@@ -676,3 +676,31 @@
     </script>
 </body>
 </html>
+<div style="text-align: center; background: rgba(255, 255, 255, 0.1); padding: 15px; border-radius: 15px; margin: 20px 0; color: #fff; font-family: sans-serif;">
+    <p style="margin: 0 0 8px 0; font-size: 14px; opacity: 0.9;">Juntos desde 12/10/2026 💖</p>
+    <div id="contador" style="font-size: 16px; font-weight: bold;">Calculando...</div>
+</div>
+
+<script>
+    function atualizarContador() {
+        // Data de início: 12 de outubro de 2026, às 00:58:57
+        const inicio = new Date(2026, 9, 12, 0, 58, 57);
+        const agora = new Date();
+        const diferenca = agora - inicio;
+
+        if (diferenca > 0) {
+            const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((diferenca / (1000 * 60 * 60)) % 24);
+            const minutos = Math.floor((diferenca / 1000 / 60) % 60);
+            const segundos = Math.floor((diferenca / 1000) % 60);
+
+            document.getElementById("contador").innerHTML = 
+                `${dias} dias, ${horas}h ${minutos}m ${segundos}s`;
+        } else {
+            document.getElementById("contador").innerHTML = "O nosso momento chegou!";
+        }
+    }
+
+    setInterval(atualizarContador, 1000);
+    atualizarContador();
+</script>
