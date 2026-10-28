@@ -957,3 +957,119 @@
         modal.classList.add('opacity-0', 'pointer-events-none');
     }
 </script>
+<!-- MINI GAME: Duelo de Cartas (Duda vs Pedro) -->
+<section class="glass-card rounded-3xl p-5 text-center space-y-4 border border-rose-300/35 relative overflow-hidden">
+    <div class="absolute -top-10 -left-10 text-rose-500/10 text-8xl pointer-events-none">
+        <i class="fa-solid fa-gamepad"></i>
+    </div>
+
+    <div class="space-y-1 relative z-10">
+        <h3 class="text-sm font-semibold text-rose-200 flex items-center justify-center gap-2">
+            <i class="fa-solid fa-gamepad text-rose-400"></i>
+            Duelo de Cartas: Duda vs Pedro 🃏
+        </h3>
+        <p class="text-[11px] text-gray-300">Joga contra o Pedro e tenta vencer as rodadas do amor!</p>
+    </div>
+
+    <!-- Placar -->
+    <div class="flex justify-around items-center bg-white/5 p-3 rounded-2xl border border-white/10 text-xs font-bold relative z-10">
+        <div class="flex items-center gap-2">
+            <span class="w-7 h-7 rounded-full bg-rose-500/30 border border-rose-400 flex items-center justify-center text-xs">👩</span>
+            <span>Duda ❤️: <span id="placarDuda" class="text-rose-400 text-sm">0</span></span>
+        </div>
+        <div class="text-amber-300 font-mono">VS</div>
+        <div class="flex items-center gap-2">
+            <span>Pedro 🎮: <span id="placarPedro" class="text-amber-300 text-sm">0</span></span>
+            <img src="pedro.jpg" alt="Pedro" class="w-7 h-7 rounded-full object-cover border border-amber-400 shadow-sm">
+        </div>
+    </div>
+
+    <!-- Área das Cartas -->
+    <div class="grid grid-cols-2 gap-3 py-2 relative z-10">
+        <!-- Carta da Duda -->
+        <div class="bg-gradient-to-b from-rose-500/25 to-slate-900/90 p-3.5 rounded-2xl border border-rose-400/40 text-center space-y-2 shadow-lg">
+            <div class="flex items-center justify-center gap-1.5 text-[10px] uppercase font-bold text-rose-300">
+                <i class="fa-solid fa-star"></i> A Sua Carta
+            </div>
+            <div id="cartaDuda" class="text-xs font-bold text-white min-h-[60px] flex items-center justify-center text-center leading-tight">
+                Toca em sortear! ✨
+            </div>
+        </div>
+
+        <!-- Carta do Pedro (com a tua foto pedro.jpg integrada) -->
+        <div class="bg-gradient-to-b from-amber-500/25 to-slate-900/90 p-3.5 rounded-2xl border border-amber-400/40 text-center space-y-2 shadow-lg relative overflow-hidden">
+            <div class="flex items-center justify-center gap-1.5 text-[10px] uppercase font-bold text-amber-300">
+                <img src="pedro.jpg" class="w-4 h-4 rounded-full object-cover border border-amber-300"> Carta do Pedro
+            </div>
+            <div id="cartaPedro" class="text-xs font-bold text-white min-h-[60px] flex items-center justify-center text-center leading-tight">
+                À espera... 🎮
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensagem de Resultado da Rodada -->
+    <div id="resultadoDuelo" class="p-3 rounded-2xl bg-white/5 border border-white/10 text-xs font-medium text-pink-100 min-h-[52px] flex items-center justify-center italic text-center relative z-10">
+        "Clica no botão abaixo para puxar a tua carta e enfrentar o Pedro!"
+    </div>
+
+    <!-- Botão de Jogar -->
+    <button onclick="jogarDuelo()" id="btnDuelo" class="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-rose-500 via-spidey-red to-amber-500 hover:opacity-90 text-white font-bold text-xs shadow-lg shadow-rose-500/20 glass-card-interactive flex items-center justify-center gap-2 relative z-10">
+        <i class="fa-solid fa-bolt text-sm"></i>
+        <span>Puxar Carta e Duelo! ⚔️</span>
+    </button>
+</section>
+
+<!-- Lógica JavaScript do Mini Game -->
+<script>
+    const baralhoDuda = [
+        { nome: "Sorriso Mais Lindo do Mundo", poder: 98, frase: "O teu sorriso desarmou completamente o Pedro!" },
+        { nome: "Nível de Fofura Extrema", poder: 95, frase: "Impossível resistir a essa fofura toda." },
+        { nome: "Poder de Argumentação", poder: 90, frase: "A Duda ganhou na conversa, o Pedro teve de aceitar!" },
+        { nome: "Olhar Enfeitiçador", poder: 99, frase: "O Pedro ficou sem palavras com esse olhar!" },
+        { nome: "Fé e Sabedoria", poder: 100, frase: "A carta suprema! A sabedoria da Duda venceu tudo." }
+    ];
+
+    const baralhoPedro = [
+        { nome: "Especialista em Tecnologia", poder: 92, frase: "O Pedro tentou resolver tudo, mas só pensava na Duda." },
+        { nome: "Mestre dos Códigos e Surpresas", poder: 88, frase: "O Pedro programou este site inteiro só para te ver sorrir!" },
+        { nome: "Fominha de Te Fazer Rir", poder: 96, frase: "O Pedro tentou uma piada só para arrancar um sorriso teu." },
+        { nome: "Amor Incondicional", poder: 100, frase: "Nesta carta o Pedro é invencível: ele te ama muito!" },
+        { nome: "Pensamento Fixo na Duda", poder: 94, frase: "O Pedro estava a trabalhar mas a mente estava 100% contigo." }
+    ];
+
+    let pontosDuda = 0;
+    let pontosPedro = 0;
+
+    function jogarDuelo() {
+        const cartaDudaEl = document.getElementById('cartaDuda');
+        const cartaPedroEl = document.getElementById('cartaPedro');
+        const resultadoEl = document.getElementById('resultadoDuelo');
+        
+        cartaDudaEl.innerText = "A baralhar... 🎴";
+        cartaPedroEl.innerText = "A baralhar... 🎴";
+        resultadoEl.innerText = "O duelo está a acontecer...";
+
+        setTimeout(() => {
+            const indexD = Math.floor(Math.random() * baralhoDuda.length);
+            const indexP = Math.floor(Math.random() * baralhoPedro.length);
+
+            const cDuda = baralhoDuda[indexD];
+            const cPedro = baralhoPedro[indexP];
+
+            cartaDudaEl.innerHTML = `<b class="text-rose-300">${cDuda.nome}</b><br><span class="text-[10px] text-gray-300">Poder: ${cDuda.poder}</span>`;
+            cartaPedroEl.innerHTML = `<b class="text-amber-300">${cPedro.nome}</b><br><span class="text-[10px] text-gray-300">Poder: ${cPedro.poder}</span>`;
+
+            if (cDuda.poder >= cPedro.poder) {
+                pontosDuda++;
+                document.getElementById('placarDuda').innerText = pontosDuda;
+                resultadoEl.innerHTML = `🎉 <b>Vitória da Duda!</b> ${cDuda.frase}`;
+                if (typeof animarChuvaDeElementos === 'function') animarChuvaDeElementos('coracao');
+            } else {
+                pontosPedro++;
+                document.getElementById('placarPedro').innerText = pontosPedro;
+                resultadoEl.innerHTML = `😎 <b>Ponto do Pedro!</b> ${cPedro.frase} (Mas no fundo, o Pedro já perdeu para ti há muito tempo ❤️)`;
+                if (typeof animarChuvaDeElementos === 'function') animarChuvaDeElementos('estrela');
+            }
+        }, 500);
+    }
+</script>
