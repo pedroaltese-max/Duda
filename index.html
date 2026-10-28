@@ -879,3 +879,81 @@
     // Executa ao carregar a página
     window.addEventListener('DOMContentLoaded', carregarBilheteDoDia);
 </script>
+<!-- Botão Secreto na Moldura da Foto (Colocar dentro do container da foto) -->
+<button onclick="ativarModoMultiverso()" class="absolute top-3 right-3 z-20 w-9 h-9 rounded-full bg-slate-900/80 border border-cyan-400/60 text-cyan-300 flex items-center justify-center text-sm shadow-lg shadow-cyan-500/30 hover:scale-110 transition-transform" title="Abrir Portal Multiverso 🌌">
+    <i class="fa-solid fa-atom animate-spin" style="animation-duration: 8s;"></i>
+</button>
+
+<!-- Estilo CSS para a Transição do Multiverso -->
+<style>
+    body {
+        transition: background 1s ease;
+    }
+    body.multiverse-mode {
+        background: linear-gradient(135deg, #2e1065 0%, #701a75 50%, #0284c7 100%) !important;
+    }
+    body.multiverse-mode .glass-card {
+        background: rgba(15, 23, 42, 0.45);
+        border: 1px solid rgba(6, 182, 212, 0.4);
+        box-shadow: 0 8px 32px 0 rgba(6, 182, 212, 0.25);
+    }
+</style>
+
+<!-- Modal Pop-Up do Multiverso -->
+<div id="multiverseModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-lg opacity-0 pointer-events-none transition-opacity duration-500">
+    <div class="glass-card bg-slate-950/95 rounded-3xl p-6 max-w-sm w-full space-y-4 border border-cyan-400/50 relative text-center shadow-2xl shadow-cyan-500/30">
+        <button onclick="fecharMultiverso()" class="absolute top-4 right-4 text-cyan-300 hover:text-white text-lg">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="inline-block p-3 rounded-2xl bg-cyan-500/20 mb-1 animate-pulse">
+            <span class="text-3xl">🌌🕷️</span>
+        </div>
+
+        <h3 class="text-lg font-bold text-cyan-300">Portal do Multiverso Aberto!</h3>
+
+        <div class="text-xs leading-relaxed text-gray-200 space-y-3 font-sans">
+            <p>⚠️ <strong>Aviso Dimensional:</strong> A varredura multiversal foi concluída com sucesso em todas as realidades conhecidas.</p>
+            <p>Descobri que existem milhões de universos paralelos lá fora... mas em absolutamente <strong>todos eles</strong>, a minha escolha continuaria a ser exatamente a mesma: <strong>Você, Duda.</strong> 💖</p>
+            <p class="font-cursive text-xl text-amber-300 pt-1">Obrigado por ser o meu universo favorito, em qualquer realidade! ✨</p>
+        </div>
+
+        <button onclick="fecharMultiverso()" class="w-full py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-rose-500 text-white font-bold text-xs shadow-lg shadow-cyan-500/30">
+            Fechar Portal com Amor 🌌❤️
+        </button>
+    </div>
+</div>
+
+<!-- Lógica JavaScript -->
+<script>
+    function ativarModoMultiverso() {
+        document.body.classList.add('multiverse-mode');
+        
+        // Toca som de teia/efeito se a função existir
+        if (typeof playThwipSound === 'function') {
+            playThwipSound();
+        }
+        
+        const modal = document.getElementById('multiverseModal');
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+        modal.classList.add('opacity-100', 'pointer-events-auto');
+
+        // Solta animações de estrelas se o canvas estiver ativo
+        if (typeof WebStrand === 'function' && typeof webs !== 'undefined') {
+            for(let i=0; i<15; i++) {
+                let targetX = Math.random() * window.innerWidth;
+                let targetY = Math.random() * window.innerHeight;
+                let s = new WebStrand(window.innerWidth/2, window.innerHeight/2, targetX, targetY);
+                s.tipo = 'estrela';
+                s.raio = 20;
+                webs.push(s);
+            }
+        }
+    }
+
+    function fecharMultiverso() {
+        const modal = document.getElementById('multiverseModal');
+        modal.classList.remove('opacity-100', 'pointer-events-auto');
+        modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+</script>
