@@ -821,3 +821,61 @@
         transform: scale(0.95);
     }
 </style>
+<!-- 1. BILHETES SURPRESA DO DIA (Diferente a cada dia) -->
+<section class="glass-card rounded-3xl p-5 text-center space-y-4 border border-rose-300/30">
+    <div class="space-y-1">
+        <h3 class="text-sm font-semibold text-rose-200 flex items-center justify-center gap-2">
+            <i class="fa-solid fa-note-sticky text-amber-300"></i>
+            Bilhete Surpresa do Dia 💌
+        </h3>
+        <p class="text-[11px] text-gray-300">Um recadinho especial feito especialmente para hoje!</p>
+    </div>
+
+    <div id="noteDisplayBox" class="p-4 rounded-2xl bg-white/5 border border-rose-400/30 text-xs font-medium text-pink-100 min-h-[70px] flex items-center justify-center transition-all duration-300 leading-relaxed italic">
+        "A carregar o bilhete de hoje... ✨"
+    </div>
+
+    <button onclick="sortearOutroBilhete()" class="w-full py-2.5 px-4 rounded-2xl bg-gradient-to-r from-amber-500 to-rose-500 hover:from-amber-600 hover:to-rose-600 text-white font-bold text-xs shadow-lg shadow-rose-500/20 glass-card-interactive flex items-center justify-center gap-2">
+        <i class="fa-solid fa-shuffle text-sm"></i>
+        <span>Ver outro bilhete por curiosidade 🎲</span>
+    </button>
+</section>
+
+<script>
+    // Lista de bilhetes românticos
+    const bilhetesRomanticos = [
+        "\"Ainda bem que te encontrei... a minha vida ficou mil vezes mais leve e bonita contigo! ✨\"",
+        "\"O teu sorriso é sem dúvida a minha coisa favorita em todo o universo. 😊❤️\"",
+        "\"Amo a forma como a gente cuida um do outro e como Deus guia cada passo nosso. 🙏✨\"",
+        "\"Lembrete do dia: Tu és a garota mais linda e incrível deste mundo inteiro! 💖\"",
+        "\"Mesmo à distância ou pertinho, tu estás sempre no centro dos meus pensamentos! 🕷️✨\"",
+        "\"Estar ao teu lado transforma qualquer dia comum num momento inesquecível. 🥰\"",
+        "\"A tua paz e a tua maturidade encantam-me mais a cada dia que passa! 🌸\""
+    ];
+
+    // Função para definir automaticamente o bilhete do dia com base na data do sistema
+    function carregarBilheteDoDia() {
+        const hoje = new Date();
+        // Usa o dia do ano para alternar entre os bilhetes de forma fixa para cada dia
+        const diaDoAno = Math.floor((hoje - new Date(hoje.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+        const indiceDoDia = diaDoAno % bilhetesRomanticos.length;
+        
+        const box = document.getElementById('noteDisplayBox');
+        box.innerText = bilhetesRomanticos[indiceDoDia];
+    }
+
+    // Função caso ela queira clicar no botão para sortear outro aleatoriamente
+    function sortearOutroBilhete() {
+        const randomIndex = Math.floor(Math.random() * bilhetesRomanticos.length);
+        const box = document.getElementById('noteDisplayBox');
+        box.style.opacity = '0';
+        
+        setTimeout(() => {
+            box.innerText = bilhetesRomanticos[randomIndex];
+            box.style.opacity = '1';
+        }, 200);
+    }
+
+    // Executa ao carregar a página
+    window.addEventListener('DOMContentLoaded', carregarBilheteDoDia);
+</script>
